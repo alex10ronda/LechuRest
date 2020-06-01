@@ -4,10 +4,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -77,12 +75,20 @@ public class Pedido {
 		this.listaProductos = productos;
 	}
 
-	public Pedido(String cliente, double importe, Date fecha) {
+	public Pedido(Long id, String cliente, double importe, Date fecha, Set<ContenidoPedido> listaProductos) {
 		super();
+		this.id = id;
 		this.cliente = cliente;
 		this.importe = importe;
 		this.fecha = fecha;
+		this.listaProductos = listaProductos;
 	}
+
+	public Pedido() {
+		super();
+	}
+
+
 	
 	
 	
