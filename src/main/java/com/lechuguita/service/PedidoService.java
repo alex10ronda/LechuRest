@@ -8,5 +8,10 @@ public interface PedidoService {
 
 	public void nuevoPedido();
 	
+	/**
+	 * Método que recupera todos los pedidos con sus productos asociados
+	 * 
+	 * @return
+	 */
 	public List<Pedido> listadoPedidos();
 }

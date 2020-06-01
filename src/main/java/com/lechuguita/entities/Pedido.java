@@ -1,7 +1,10 @@
 package com.lechuguita.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lechuguita.model.ProductoModel;
 
 @Entity
 @Table(name="PEDIDO")
@@ -31,9 +38,24 @@ public class Pedido {
 	@Column(name="FECHA")
 	private Date fecha;
 	
-	@OneToMany(mappedBy="producto")
-	private Set<ContenidoPedido> listaProductos = new HashSet<ContenidoPedido>();
-
+	
+	/**
+	 * Devuelve toda la relacion de pedidos y productos
+	 * De momento no queremos que se devuelva
+	 */
+	@OneToMany(mappedBy="pedido")
+	@JsonIgnore
+	private Set<ContenidoPedido> contenido = new HashSet<ContenidoPedido>();
+	
+	
+	/**
+	 * Mapa con nombres de productos y cantidades que se va a devolver.
+	 * No nos interesa devolver toda la entidad producto
+	 */
+	@Transient
+	private List<ProductoModel> listaProductos = new ArrayList<>();
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,22 +88,29 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 	
+	public Set<ContenidoPedido> getContenido() {
+		return contenido;
+	}
 
-	public Set<ContenidoPedido> getProductos() {
+	public void setContenido(Set<ContenidoPedido> contenido) {
+		this.contenido = contenido;
+	}
+
+	public List<ProductoModel> getListaProductos() {
 		return listaProductos;
 	}
 
-	public void setProductos(Set<ContenidoPedido> productos) {
-		this.listaProductos = productos;
+	public void setListaProductos(List<ProductoModel> listaProductos) {
+		this.listaProductos = listaProductos;
 	}
 
-	public Pedido(Long id, String cliente, double importe, Date fecha, Set<ContenidoPedido> listaProductos) {
+	public Pedido(Long id, String cliente, double importe, Date fecha, Set<ContenidoPedido> contenido) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.importe = importe;
 		this.fecha = fecha;
-		this.listaProductos = listaProductos;
+		this.contenido = contenido;
 	}
 
 	public Pedido() {

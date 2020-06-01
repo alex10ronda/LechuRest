@@ -36,7 +36,7 @@ public class Producto {
 	@Column(name="TIPO")
 	private String tipo;
 	
-	@OneToMany(mappedBy="pedido")
+	@OneToMany(mappedBy="producto")
 	@JsonIgnore
 	private Set<ContenidoPedido> listaPedidos = new HashSet<ContenidoPedido>();
 
