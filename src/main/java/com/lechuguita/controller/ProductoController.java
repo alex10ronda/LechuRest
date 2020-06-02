@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lechuguita.entities.Producto;
+import com.lechuguita.dto.ProductoDTO;
 import com.lechuguita.service.ProductoService;
 
 @RestController
@@ -18,7 +18,7 @@ public class ProductoController {
 	private ProductoService productoService;
 	
 	@GetMapping(value="/listaProductos")
-	public List<Producto> getProductos(){
+	public List<ProductoDTO> getProductos(){
 		return productoService.getAllProductos();
 	}
 }

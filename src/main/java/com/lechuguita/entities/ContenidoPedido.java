@@ -1,7 +1,6 @@
 package com.lechuguita.entities;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -10,28 +9,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="CONTENIDO_PEDIDO")
 public class ContenidoPedido implements Serializable{
 
 	@EmbeddedId
-	@JsonIgnore
 	private ContenidoPedidoPK pk;
 	
 	@ManyToOne
 	@MapsId("idProducto")
 	@JoinColumn(name="ID_PRODUCTO")
-	@JsonIgnore
 	private Producto producto;
 	
 	@ManyToOne
 	@MapsId("idPedido")
 	@JoinColumn(name="ID_PEDIDO")
-	private Producto pedido;
+	private Pedido pedido;
 	
 	@Column(name="CANTIDAD")
 	private Integer cantidad;
@@ -52,14 +46,16 @@ public class ContenidoPedido implements Serializable{
 		this.producto = producto;
 	}
 
-	public Producto getPedido() {
+	public Pedido getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(Producto pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 
+	
+	
 	public Integer getCantidad() {
 		return cantidad;
 	}

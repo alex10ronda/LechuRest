@@ -9,26 +9,28 @@ import javax.persistence.Embeddable;
 public class ContenidoPedidoPK implements Serializable{
 
 	@Column(name="ID_PEDIDO")
-	private Long idPedido;
+	private Long ID_PEDIDO;
 	
 	@Column(name="ID_PRODUCTO")
-	private Long idProducto;
+	private Long ID_PRODUCTO;
 
-	public Long getIdProducto() {
-		return idProducto;
+	public Long getID_PEDIDO() {
+		return ID_PEDIDO;
 	}
 
-	public void setIdProducto(Long idProducto) {
-		this.idProducto = idProducto;
+	public void setID_PEDIDO(Long iD_PEDIDO) {
+		ID_PEDIDO = iD_PEDIDO;
 	}
 
-	public Long getIdPedido() {
-		return idPedido;
+	public Long getID_PRODUCTO() {
+		return ID_PRODUCTO;
 	}
 
-	public void setIdPedido(Long idPedido) {
-		this.idPedido = idPedido;
+	public void setID_PRODUCTO(Long iD_PRODUCTO) {
+		ID_PRODUCTO = iD_PRODUCTO;
 	}
+
+
 	
 	
 }

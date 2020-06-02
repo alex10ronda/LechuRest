@@ -3,8 +3,10 @@ package com.lechuguita.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,7 @@ public class Producto {
 	@Column(name="TIPO")
 	private String tipo;
 	
-	@OneToMany(mappedBy="producto")
+	@OneToMany(mappedBy="producto",cascade= CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<ContenidoPedido> listaPedidos = new HashSet<ContenidoPedido>();
 

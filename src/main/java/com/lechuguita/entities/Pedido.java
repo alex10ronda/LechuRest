@@ -2,21 +2,20 @@ package com.lechuguita.entities;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lechuguita.model.ProductoModel;
 
 @Entity
@@ -43,17 +42,9 @@ public class Pedido {
 	 * Devuelve toda la relacion de pedidos y productos
 	 * De momento no queremos que se devuelva
 	 */
-	@OneToMany(mappedBy="pedido")
-	@JsonIgnore
+	@OneToMany(mappedBy="pedido", cascade= CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ContenidoPedido> contenido = new HashSet<ContenidoPedido>();
 	
-	
-	/**
-	 * Mapa con nombres de productos y cantidades que se va a devolver.
-	 * No nos interesa devolver toda la entidad producto
-	 */
-	@Transient
-	private List<ProductoModel> listaProductos = new ArrayList<>();
 	
 	
 	public Long getId() {
@@ -96,13 +87,6 @@ public class Pedido {
 		this.contenido = contenido;
 	}
 
-	public List<ProductoModel> getListaProductos() {
-		return listaProductos;
-	}
-
-	public void setListaProductos(List<ProductoModel> listaProductos) {
-		this.listaProductos = listaProductos;
-	}
 
 	public Pedido(Long id, String cliente, double importe, Date fecha, Set<ContenidoPedido> contenido) {
 		super();
@@ -118,6 +102,16 @@ public class Pedido {
 	}
 
 
+	public List<ProductoModel> getResumenProductos(){
+		
+		List<ProductoModel> listaProductos = new ArrayList<>();
+		
+		this.contenido.forEach(c -> {
+			listaProductos.add(new ProductoModel(c.getProducto().getId(),c.getProducto().getNombre(), c.getCantidad()));
+		});
+		
+		return listaProductos;
+	}
 	
 	
 	
