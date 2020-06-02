@@ -40,30 +40,36 @@ public class PedidoServiceImpl implements PedidoService {
 		
 		DoubleAdder adder =  new DoubleAdder();
 		
+		//Se crea un nuevo pedido
 		Pedido pedido = new Pedido();
 		pedido.setId(nuevoPedido.getId());
 		pedido.setCliente(nuevoPedido.getCliente());;
 		pedido.setFecha(nuevoPedido.getFecha());
 		
-		Set<ContenidoPedido> lista = new HashSet<>();
+		List<ContenidoPedido> lista = new ArrayList();
 		
-		
+		//Se recorre la lista de productos recibidos en el DTO
 		nuevoPedido.getListaProductos().stream().forEach(p -> {
 			
 			ContenidoPedido elemento = new ContenidoPedido();
+			ContenidoPedidoPK pk = new ContenidoPedidoPK();
 			
+			//Se buscan los productos en BBDD
 			Producto producto = productoRepo.findById(p.getId()).get();
 			
-			adder.add(p.getCantidad() * producto.getPrecio());
-						
-			elemento.setProducto(producto);
+			//Se crea el componente contenido
+			pk.setProducto(producto);
+			pk.setPedido(pedido);
 			elemento.setCantidad(p.getCantidad());
-			elemento.setPedido(pedido);
+			elemento.setPk(pk);
+
 			lista.add(elemento);
 			
+			//Suma de los importes
+			adder.add(p.getCantidad() * producto.getPrecio());
+			
 		});
-		
-		
+			
 		pedido.setImporte(adder.doubleValue());
 		pedido.setContenido(lista);
 		

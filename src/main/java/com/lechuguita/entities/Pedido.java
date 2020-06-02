@@ -42,8 +42,8 @@ public class Pedido {
 	 * Devuelve toda la relacion de pedidos y productos
 	 * De momento no queremos que se devuelva
 	 */
-	@OneToMany(mappedBy="pedido", cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ContenidoPedido> contenido = new HashSet<ContenidoPedido>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="pk.pedido", cascade=CascadeType.ALL)
+	private List<ContenidoPedido> contenido = new ArrayList<ContenidoPedido>();
 	
 	
 	
@@ -79,22 +79,24 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 	
-	public Set<ContenidoPedido> getContenido() {
+
+
+
+	public List<ContenidoPedido> getContenido() {
 		return contenido;
 	}
 
-	public void setContenido(Set<ContenidoPedido> contenido) {
+	public void setContenido(List<ContenidoPedido> contenido) {
 		this.contenido = contenido;
 	}
 
-
-	public Pedido(Long id, String cliente, double importe, Date fecha, Set<ContenidoPedido> contenido) {
+	public Pedido(Long id, String cliente, double importe, Date fecha) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.importe = importe;
 		this.fecha = fecha;
-		this.contenido = contenido;
+
 	}
 
 	public Pedido() {
@@ -107,7 +109,7 @@ public class Pedido {
 		List<ProductoModel> listaProductos = new ArrayList<>();
 		
 		this.contenido.forEach(c -> {
-			listaProductos.add(new ProductoModel(c.getProducto().getId(),c.getProducto().getNombre(), c.getCantidad()));
+			listaProductos.add(new ProductoModel(c.getPk().getProducto().getId(),c.getPk().getProducto().getNombre(), c.getCantidad()));
 		});
 		
 		return listaProductos;

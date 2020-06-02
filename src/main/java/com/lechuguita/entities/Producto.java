@@ -1,7 +1,7 @@
 package com.lechuguita.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -38,9 +37,8 @@ public class Producto {
 	@Column(name="TIPO")
 	private String tipo;
 	
-	@OneToMany(mappedBy="producto",cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private Set<ContenidoPedido> listaPedidos = new HashSet<ContenidoPedido>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="pk.producto", cascade=CascadeType.ALL)
+	private List<ContenidoPedido> listaPedidos = new ArrayList<ContenidoPedido>();
 
 	public Long getId() {
 		return id;
@@ -83,23 +81,23 @@ public class Producto {
 		this.tipo = tipo;
 	}
 
-	public Set<ContenidoPedido> getListaPedidos() {
+
+	public List<ContenidoPedido> getListaPedidos() {
 		return listaPedidos;
 	}
 
-	public void setListaPedidos(Set<ContenidoPedido> listaPedidos) {
+	public void setListaPedidos(List<ContenidoPedido> listaPedidos) {
 		this.listaPedidos = listaPedidos;
 	}
 
-	public Producto(Long id, String nombre, double precio, String descripcion, String tipo,
-			Set<ContenidoPedido> listaPedidos) {
+	public Producto(Long id, String nombre, double precio, String descripcion, String tipo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
-		this.listaPedidos = listaPedidos;
+
 	}
 
 	public Producto() {
