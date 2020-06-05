@@ -1,10 +1,7 @@
 package com.lechuguita.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.stream.Collectors;
 
