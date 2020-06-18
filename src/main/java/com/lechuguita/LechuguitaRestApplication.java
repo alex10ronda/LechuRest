@@ -14,7 +14,6 @@ public class LechuguitaRestApplication {
 
 	public static void main(String[] args) {
 		logger.info("Se arranca el servidor Lechu Spring");
-		logger.error("Se arranca el servidor Lechu Spring");
 
 		SpringApplication.run(LechuguitaRestApplication.class, args);
 		

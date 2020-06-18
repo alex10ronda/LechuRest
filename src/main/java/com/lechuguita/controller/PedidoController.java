@@ -21,7 +21,7 @@ import com.lechuguita.service.PedidoService;
  *
  */
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/el-lechuguita/pedidos")
 public class PedidoController {
 
 	@Autowired
